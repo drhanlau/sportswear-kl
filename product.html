@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Air Zoom Pegasus 41 | APEX Athletics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            accent: '#ff4d00',
+                            accentLight: '#ff6a2a',
+                            gray: '#8a8a8a',
+                            light: '#f5f5f5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Bebas Neue', sans-serif; }
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .thumbnail.active {
+            border-color: #ff4d00;
+        }
+        .size-btn.active {
+            background: #ff4d00;
+            border-color: #ff4d00;
+            color: white;
+        }
+        .size-btn.out-of-stock {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .color-swatch.active {
+            ring: 2px;
+            ring-offset: 2px;
+        }
+        .tab-btn.active {
+            color: #ff4d00;
+            border-color: #ff4d00;
+        }
+        .related-card:hover .related-img {
+            transform: scale(1.08);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .zoom-image {
+            animation: fadeIn 0.3s ease-out;
+        }
+        .sticky-add {
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-brand-black/80">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="font-display text-3xl tracking-wider text-white">
+                APEX<span class="text-brand-accent">.</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                <a href="catalog.html" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">Catalog</a>
+                <a href="index.html#about" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">About</a>
+                <a href="index.html#contact" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+                <button class="relative p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span class="absolute -top-1 -right-1 w-5 h-5 bg-brand-accent rounded-full text-xs flex items-center justify-center font-semibold">3</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="pt-24 pb-4 bg-brand-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <nav class="flex items-center gap-2 text-sm text-gray-400">
+                <a href="index.html" class="hover:text-brand-accent transition-colors">Home</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="catalog.html" class="hover:text-brand-accent transition-colors">Catalog</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="catalog.html" class="hover:text-brand-accent transition-colors">Running</a>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-white">Air Zoom Pegasus 41</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section class="py-8 pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- Product Images -->
+                <div class="space-y-4">
+                    <!-- Main Image -->
+                    <div class="relative overflow-hidden rounded-3xl bg-brand-dark">
+                        <img id="main-image" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" alt="Nike Air Zoom Pegasus 41" class="w-full h-[500px] object-cover">
+                        <div class="absolute top-4 left-4 bg-brand-accent text-xs font-bold px-3 py-1 rounded-full">NEW</div>
+                        <button id="zoom-btn" class="absolute bottom-4 right-4 bg-white/20 hover:bg-white/40 p-3 rounded-full transition-colors backdrop-blur-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                        </button>
+                        <button class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 p-3 rounded-full transition-colors backdrop-blur-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Thumbnails -->
+                    <div class="flex gap-3">
+                        <button class="thumbnail active w-24 h-24 rounded-xl overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" alt="Thumbnail 1" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail w-24 h-24 rounded-xl overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors" data-image="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&q=80">
+                            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=200&q=80" alt="Thumbnail 2" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail w-24 h-24 rounded-xl overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors" data-image="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80">
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=200&q=80" alt="Thumbnail 3" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail w-24 h-24 rounded-xl overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors" data-image="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80">
+                            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&q=80" alt="Thumbnail 4" class="w-full h-full object-cover">
+                        </button>
+                        <button class="thumbnail w-24 h-24 rounded-xl overflow-hidden border-2 border-transparent hover:border-brand-accent transition-colors" data-image="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&q=80">
+                            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=200&q=80" alt="Thumbnail 5" class="w-full h-full object-cover">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-brand-accent font-semibold tracking-widest uppercase mb-2">Nike</p>
+                        <h1 class="font-display text-4xl md:text-5xl mb-2">AIR ZOOM PEGASUS 41</h1>
+                        <p class="text-gray-400">Men's Road Running Shoes</p>
+                        
+                        <!-- Rating -->
+                        <div class="flex items-center gap-3 mt-4">
+                            <div class="flex gap-1">
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            </div>
+                            <span class="text-sm text-gray-400">4.2 (128 reviews)</span>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="flex items-baseline gap-4">
+                        <span class="font-display text-4xl text-brand-accent">RM 549</span>
+                        <span class="text-xl text-gray-500 line-through">RM 649</span>
+                        <span class="bg-red-500/20 text-red-400 text-sm font-semibold px-3 py-1 rounded-full">-15%</span>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="text-gray-400 leading-relaxed">
+                        The Nike Air Zoom Pegasus 41 continues to put a spring in your step, using the same responsive foam as its predecessor. This version adds even more support around the midfoot with an updated Flywire system integrated with the midfoot band.
+                    </p>
+
+                    <!-- Color Selection -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-semibold">Color: <span id="selected-color" class="text-gray-400 font-normal">Black/White</span></span>
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="color-swatch active w-10 h-10 rounded-full bg-gray-900 ring-2 ring-brand-accent ring-offset-2 ring-offset-brand-black transition-all" data-color="Black/White"></button>
+                            <button class="color-swatch w-10 h-10 rounded-full bg-white ring-2 ring-transparent ring-offset-2 ring-offset-brand-black hover:ring-brand-accent transition-all" data-color="White/Black"></button>
+                            <button class="color-swatch w-10 h-10 rounded-full bg-blue-600 ring-2 ring-transparent ring-offset-2 ring-offset-brand-black hover:ring-brand-accent transition-all" data-color="Blue/Orange"></button>
+                            <button class="color-swatch w-10 h-10 rounded-full bg-gray-500 ring-2 ring-transparent ring-offset-2 ring-offset-brand-black hover:ring-brand-accent transition-all" data-color="Gray/Volt"></button>
+                        </div>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-semibold">Size (EU)</span>
+                            <a href="#" class="text-sm text-brand-accent hover:underline">Size Guide</a>
+                        </div>
+                        <div class="grid grid-cols-5 gap-2">
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">38</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">39</button>
+                            <button class="size-btn active py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">40</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">41</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">42</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">43</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">44</button>
+                            <button class="size-btn out-of-stock py-3 border border-white/20 rounded-xl text-sm">45</button>
+                            <button class="size-btn py-3 border border-white/20 rounded-xl text-sm hover:border-brand-accent transition-colors">46</button>
+                            <button class="size-btn out-of-stock py-3 border border-white/20 rounded-xl text-sm">47</button>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div>
+                        <span class="font-semibold block mb-3">Quantity</span>
+                        <div class="flex items-center gap-4">
+                            <button id="qty-minus" class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-xl hover:border-brand-accent hover:bg-brand-accent/10 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                            </button>
+                            <span id="quantity" class="text-xl font-semibold w-12 text-center">1</span>
+                            <button id="qty-plus" class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-xl hover:border-brand-accent hover:bg-brand-accent/10 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 pt-4">
+                        <button id="add-to-cart" class="flex-1 bg-brand-accent hover:bg-brand-accentLight text-white py-4 text-lg font-semibold rounded-xl transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            Add to Cart
+                        </button>
+                        <button class="w-14 h-14 flex items-center justify-center border border-white/20 rounded-xl hover:border-brand-accent hover:bg-brand-accent/10 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Delivery Info -->
+                    <div class="bg-brand-dark rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-brand-accent/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Free Delivery</p>
+                                <p class="text-sm text-gray-400">For orders above RM 200 in KL</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-brand-accent/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">30-Day Returns</p>
+                                <p class="text-sm text-gray-400">Hassle-free return policy</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-brand-accent/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">100% Authentic</p>
+                                <p class="text-sm text-gray-400">Official Nike product</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Tabs -->
+    <section class="py-16 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Tab Buttons -->
+            <div class="flex border-b border-white/10 mb-8 overflow-x-auto">
+                <button class="tab-btn active px-6 py-4 font-semibold border-b-2 border-transparent transition-colors whitespace-nowrap" data-tab="description">Description</button>
+                <button class="tab-btn px-6 py-4 font-semibold border-b-2 border-transparent transition-colors whitespace-nowrap text-gray-400 hover:text-white" data-tab="specs">Specifications</button>
+                <button class="tab-btn px-6 py-4 font-semibold border-b-2 border-transparent transition-colors whitespace-nowrap text-gray-400 hover:text-white" data-tab="reviews">Reviews (128)</button>
+                <button class="tab-btn px-6 py-4 font-semibold border-b-2 border-transparent transition-colors whitespace-nowrap text-gray-400 hover:text-white" data-tab="shipping">Shipping</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="tab-description" class="tab-content">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-4">
+                        <h3 class="font-display text-3xl">YOUR WORKHORSE WITH WINGS RETURNS</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            A springy ride for any run, the Peg's familiar, just-for-you fit returns alongside a redesigned midfoot that secures your foot as you lace up. This is the stalwart of the Nike running stable, been a favorite for over 40 years for a reason.
+                        </p>
+                        <p class="text-gray-400 leading-relaxed">
+                            The Nike Air Zoom Pegasus 41 is a neutral road running shoe that's designed for everyday training. The React foam midsole provides a smooth, responsive ride, while the Zoom Air unit in the forefoot adds an extra spring to your step.
+                        </p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Key Features</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-gray-400">React foam midsole for responsive cushioning</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-gray-400">Zoom Air unit in forefoot for added bounce</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-gray-400">Flywire cables integrate with midfoot band</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-gray-400">Waffle outsole pattern for durable traction</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-gray-400">Engineered mesh upper for breathability</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-specs" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-brand-black rounded-2xl p-6">
+                        <h4 class="font-semibold mb-4">Product Details</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Style</span>
+                                <span>FD2722-002</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Weight</span>
+                                <span>283g (Size 42)</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Heel-to-Toe Drop</span>
+                                <span>10mm</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Arch Support</span>
+                                <span>Neutral</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-400">Terrain</span>
+                                <span>Road</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-brand-black rounded-2xl p-6">
+                        <h4 class="font-semibold mb-4">Materials</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Upper</span>
+                                <span>Engineered Mesh</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Midsole</span>
+                                <span>React Foam</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Outsole</span>
+                                <span>Rubber Waffle</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-gray-400">Lining</span>
+                                <span>Textile</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-400">Insole</span>
+                                <span>Foam</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-reviews" class="tab-content hidden">
+                <div class="space-y-6">
+                    <!-- Review Summary -->
+                    <div class="bg-brand-black rounded-2xl p-6 flex flex-col md:flex-row gap-8 items-center">
+                        <div class="text-center">
+                            <div class="font-display text-6xl text-brand-accent">4.2</div>
+                            <div class="flex gap-1 my-2 justify-center">
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            </div>
+                            <p class="text-sm text-gray-400">128 reviews</p>
+                        </div>
+                        <div class="flex-1 w-full space-y-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm text-gray-400 w-8">5★</span>
+                                <div class="flex-1 h-2 bg-brand-dark rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent rounded-full" style="width: 65%"></div>
+                                </div>
+                                <span class="text-sm text-gray-400 w-8">83</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm text-gray-400 w-8">4★</span>
+                                <div class="flex-1 h-2 bg-brand-dark rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent rounded-full" style="width: 20%"></div>
+                                </div>
+                                <span class="text-sm text-gray-400 w-8">26</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm text-gray-400 w-8">3★</span>
+                                <div class="flex-1 h-2 bg-brand-dark rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent rounded-full" style="width: 10%"></div>
+                                </div>
+                                <span class="text-sm text-gray-400 w-8">13</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm text-gray-400 w-8">2★</span>
+                                <div class="flex-1 h-2 bg-brand-dark rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent rounded-full" style="width: 3%"></div>
+                                </div>
+                                <span class="text-sm text-gray-400 w-8">4</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm text-gray-400 w-8">1★</span>
+                                <div class="flex-1 h-2 bg-brand-dark rounded-full overflow-hidden">
+                                    <div class="h-full bg-brand-accent rounded-full" style="width: 1%"></div>
+                                </div>
+                                <span class="text-sm text-gray-400 w-8">2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Individual Reviews -->
+                    <div class="space-y-6">
+                        <div class="bg-brand-black rounded-2xl p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-semibold">Ahmad Razif</p>
+                                        <p class="text-sm text-gray-400">Verified Buyer • 2 weeks ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">Perfect for my daily 10K runs around KLCC park. The cushioning is responsive without being too soft, and the breathability is great for our hot weather. True to size - I ordered my usual EU 42 and it fits perfectly.</p>
+                        </div>
+
+                        <div class="bg-brand-black rounded-2xl p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Reviewer" class="w-12 h-12 rounded-full object-cover">
+                                    <div>
+                                        <p class="font-semibold">Wei Ming</p>
+                                        <p class="text-sm text-gray-400">Verified Buyer • 1 month ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-accent fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-4 h-4 text-gray-600 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">Great shoe overall, very comfortable for long runs. Only reason I'm giving 4 stars is that the white colorway gets dirty pretty quickly in our weather. Recommend going for the black version if you don't want to clean them every week.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-shipping" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-brand-black rounded-2xl p-6">
+                        <h4 class="font-semibold mb-4">Shipping Options</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-3 border-b border-white/10">
+                                <div>
+                                    <p class="font-medium">Same-Day Delivery (KL)</p>
+                                    <p class="text-sm text-gray-400">Order before 2:00 PM</p>
+                                </div>
+                                <span class="font-semibold text-brand-accent">RM 15</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-white/10">
+                                <div>
+                                    <p class="font-medium">Standard Delivery</p>
+                                    <p class="text-sm text-gray-400">2-3 business days</p>
+                                </div>
+                                <span class="font-semibold text-brand-accent">FREE*</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-white/10">
+                                <div>
+                                    <p class="font-medium">Express Delivery</p>
+                                    <p class="text-sm text-gray-400">Next business day</p>
+                                </div>
+                                <span class="font-semibold text-brand-accent">RM 25</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3">
+                                <div>
+                                    <p class="font-medium">East Malaysia</p>
+                                    <p class="text-sm text-gray-400">5-7 business days</p>
+                                </div>
+                                <span class="font-semibold text-brand-accent">RM 30</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4">*Free for orders above RM 200</p>
+                    </div>
+                    <div class="bg-brand-black rounded-2xl p-6">
+                        <h4 class="font-semibold mb-4">Store Pickup</h4>
+                        <p class="text-gray-400 mb-4">Skip the shipping fee and pick up your order at our store.</p>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-brand-dark rounded-xl">
+                                <svg class="w-5 h-5 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <div>
+                                    <p class="font-medium">Pavilion KL</p>
+                                    <p class="text-sm text-gray-400">Ready in 2-4 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-display text-4xl">YOU MAY ALSO LIKE</h2>
+                <a href="catalog.html" class="text-brand-accent font-semibold hover:underline">View All</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="related-card group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-3">
+                        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&q=80" alt="Related Product" class="related-img w-full h-48 object-cover transition-transform duration-500">
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Adidas</p>
+                    <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Ultraboost 23</h3>
+                    <p class="font-display text-lg text-brand-accent">RM 799</p>
+                </div>
+                <div class="related-card group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-3">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80" alt="Related Product" class="related-img w-full h-48 object-cover transition-transform duration-500">
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">ASICS</p>
+                    <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Gel-Nimbus 26</h3>
+                    <p class="font-display text-lg text-brand-accent">RM 699</p>
+                </div>
+                <div class="related-card group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-3">
+                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400&q=80" alt="Related Product" class="related-img w-full h-48 object-cover transition-transform duration-500">
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">New Balance</p>
+                    <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Fresh Foam X 1080</h3>
+                    <p class="font-display text-lg text-brand-accent">RM 749</p>
+                </div>
+                <div class="related-card group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-3">
+                        <img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=400&q=80" alt="Related Product" class="related-img w-full h-48 object-cover transition-transform duration-500">
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                    <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Air Max 270</h3>
+                    <p class="font-display text-lg text-brand-accent">RM 599</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <a href="index.html" class="font-display text-4xl tracking-wider text-white inline-block mb-4">
+                        APEX<span class="text-brand-accent">.</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Kuala Lumpur's premier destination for authentic sportswear and athletic footwear since 2015.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Running</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Training</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Football</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Basketball</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Lifestyle</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">FAQ</a></li>
+                        <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Brands</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Nike</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Adidas</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Puma</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Under Armour</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">New Balance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2024 APEX Athletics Sdn Bhd. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-brand-accent transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-accent transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Thumbnail gallery
+        const mainImage = document.getElementById('main-image');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                thumbnails.forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+                mainImage.src = thumb.dataset.image;
+            });
+        });
+
+        // Size selection
+        const sizeBtns = document.querySelectorAll('.size-btn:not(.out-of-stock)');
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sizeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Color selection
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        const selectedColor = document.getElementById('selected-color');
+        
+        colorSwatches.forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                colorSwatches.forEach(s => {
+                    s.classList.remove('active');
+                    s.classList.remove('ring-brand-accent');
+                    s.classList.add('ring-transparent');
+                });
+                swatch.classList.add('active');
+                swatch.classList.remove('ring-transparent');
+                swatch.classList.add('ring-brand-accent');
+                selectedColor.textContent = swatch.dataset.color;
+            });
+        });
+
+        // Quantity
+        const qtyMinus = document.getElementById('qty-minus');
+        const qtyPlus = document.getElementById('qty-plus');
+        const quantity = document.getElementById('quantity');
+        
+        qtyMinus.addEventListener('click', () => {
+            let qty = parseInt(quantity.textContent);
+            if (qty > 1) quantity.textContent = qty - 1;
+        });
+        
+        qtyPlus.addEventListener('click', () => {
+            let qty = parseInt(quantity.textContent);
+            if (qty < 10) quantity.textContent = qty + 1;
+        });
+
+        // Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-gray-400');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-gray-400');
+                
+                tabContents.forEach(content => content.classList.add('hidden'));
+                document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+
+        // Add to cart animation
+        const addToCart = document.getElementById('add-to-cart');
+        addToCart.addEventListener('click', () => {
+            addToCart.innerHTML = `
+                <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                Adding...
+            `;
+            setTimeout(() => {
+                addToCart.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Added to Cart!
+                `;
+                addToCart.classList.remove('bg-brand-accent');
+                addToCart.classList.add('bg-green-600');
+                setTimeout(() => {
+                    addToCart.innerHTML = `
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        Add to Cart
+                    `;
+                    addToCart.classList.remove('bg-green-600');
+                    addToCart.classList.add('bg-brand-accent');
+                }, 2000);
+            }, 800);
+        });
+    </script>
+
+</body>
+</html>
