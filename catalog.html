@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX Athletics | Product Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            accent: '#ff4d00',
+                            accentLight: '#ff6a2a',
+                            gray: '#8a8a8a',
+                            light: '#f5f5f5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Bebas Neue', sans-serif; }
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+        .product-card:hover .quick-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .filter-btn.active {
+            background: #ff4d00;
+            color: white;
+        }
+        .size-chip.active {
+            background: #ff4d00;
+            border-color: #ff4d00;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-card {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        .sort-dropdown:focus .sort-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-brand-black/80">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="font-display text-3xl tracking-wider text-white">
+                APEX<span class="text-brand-accent">.</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                <a href="catalog.html" class="text-sm font-medium text-brand-accent transition-colors">Catalog</a>
+                <a href="index.html#about" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">About</a>
+                <a href="index.html#contact" class="text-sm font-medium text-gray-300 hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+                <button class="relative p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <span class="absolute -top-1 -right-1 w-5 h-5 bg-brand-accent rounded-full text-xs flex items-center justify-center font-semibold">3</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-28 pb-12 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div>
+                    <p class="text-brand-accent font-semibold tracking-widest uppercase mb-2">Collection</p>
+                    <h1 class="font-display text-5xl md:text-7xl">ALL PRODUCTS</h1>
+                    <p class="text-gray-400 mt-2">Showing <span id="product-count">24</span> products</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <select id="sort-select" class="appearance-none bg-brand-black border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm focus:outline-none focus:border-brand-accent cursor-pointer">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="newest">Newest</option>
+                        </select>
+                        <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <button id="filter-toggle" class="md:hidden bg-brand-accent p-3 rounded-xl">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex gap-8">
+                
+                <!-- Sidebar Filters -->
+                <aside id="filters-sidebar" class="hidden md:block w-64 flex-shrink-0">
+                    <div class="sticky top-28 space-y-8">
+                        
+                        <!-- Categories -->
+                        <div>
+                            <h3 class="font-semibold mb-4">Category</h3>
+                            <div class="space-y-2">
+                                <button class="filter-btn active w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="all">All Products</button>
+                                <button class="filter-btn w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="running">Running</button>
+                                <button class="filter-btn w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="training">Training</button>
+                                <button class="filter-btn w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="football">Football</button>
+                                <button class="filter-btn w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="basketball">Basketball</button>
+                                <button class="filter-btn w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all hover:bg-brand-dark" data-category="lifestyle">Lifestyle</button>
+                            </div>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div>
+                            <h3 class="font-semibold mb-4">Price Range</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Under RM 200</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">RM 200 - RM 400</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">RM 400 - RM 600</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">RM 600+</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Brands -->
+                        <div>
+                            <h3 class="font-semibold mb-4">Brands</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Nike</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Adidas</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Puma</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Under Armour</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">New Balance</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" class="w-4 h-4 rounded border-gray-600 text-brand-accent focus:ring-brand-accent accent-[#ff4d00]" checked>
+                                    <span class="text-sm text-gray-300 group-hover:text-white transition-colors">ASICS</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Sizes -->
+                        <div>
+                            <h3 class="font-semibold mb-4">Size (EU)</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="size-chip px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">38</button>
+                                <button class="size-chip active px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">39</button>
+                                <button class="size-chip active px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">40</button>
+                                <button class="size-chip active px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">41</button>
+                                <button class="size-chip active px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">42</button>
+                                <button class="size-chip active px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">43</button>
+                                <button class="size-chip px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">44</button>
+                                <button class="size-chip px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">45</button>
+                                <button class="size-chip px-3 py-1.5 border border-white/20 rounded-lg text-sm hover:border-brand-accent transition-colors">46</button>
+                            </div>
+                        </div>
+
+                        <!-- Clear Filters -->
+                        <button class="w-full py-3 border border-white/20 rounded-xl text-sm font-medium hover:bg-white/5 transition-colors">
+                            Clear All Filters
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- Product Grid -->
+                <div class="flex-1">
+                    <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Product 1 -->
+                        <div class="product-card group cursor-pointer" data-category="running" data-price="549">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Nike Air Zoom Pegasus" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="absolute top-3 left-3 bg-brand-accent text-xs font-bold px-3 py-1 rounded-full">NEW</div>
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Air Zoom Pegasus 41</h3>
+                                <p class="text-sm text-gray-400">Men's Road Running Shoes</p>
+                                <p class="font-display text-xl text-brand-accent">RM 549</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="product-card group cursor-pointer" data-category="lifestyle" data-price="499">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600&q=80" alt="Adidas Ultraboost" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Adidas</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Ultraboost 23</h3>
+                                <p class="text-sm text-gray-400">Men's Running Shoes</p>
+                                <p class="font-display text-xl text-brand-accent">RM 799</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="product-card group cursor-pointer" data-category="training" data-price="189">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Training Top" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Dri-FIT ADV Training Top</h3>
+                                <p class="text-sm text-gray-400">Men's Short-Sleeve Top</p>
+                                <p class="font-display text-xl text-brand-accent">RM 189</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="product-card group cursor-pointer" data-category="football" data-price="349">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1511886929837-354d827aae26?w=600&q=80" alt="Football Boots" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="absolute top-3 left-3 bg-red-500 text-xs font-bold px-3 py-1 rounded-full">-20%</div>
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Adidas</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Predator Elite FG</h3>
+                                <p class="text-sm text-gray-400">Firm Ground Football Boots</p>
+                                <div class="flex items-center gap-2">
+                                    <p class="font-display text-xl text-brand-accent">RM 899</p>
+                                    <p class="text-sm text-gray-500 line-through">RM 1,099</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 5 -->
+                        <div class="product-card group cursor-pointer" data-category="basketball" data-price="699">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80" alt="Basketball Shoes" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">LeBron XXI</h3>
+                                <p class="text-sm text-gray-400">Basketball Shoes</p>
+                                <p class="font-display text-xl text-brand-accent">RM 699</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 6 -->
+                        <div class="product-card group cursor-pointer" data-category="lifestyle" data-price="429">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=600&q=80" alt="Lifestyle Sneakers" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="absolute top-3 left-3 bg-brand-accent text-xs font-bold px-3 py-1 rounded-full">HOT</div>
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">New Balance</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">574 Classic</h3>
+                                <p class="text-sm text-gray-400">Unisex Lifestyle Shoes</p>
+                                <p class="font-display text-xl text-brand-accent">RM 429</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 7 -->
+                        <div class="product-card group cursor-pointer" data-category="running" data-price="529">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80" alt="Running Shoes" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">ASICS</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Gel-Nimbus 26</h3>
+                                <p class="text-sm text-gray-400">Men's Road Running Shoes</p>
+                                <p class="font-display text-xl text-brand-accent">RM 699</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 8 -->
+                        <div class="product-card group cursor-pointer" data-category="training" data-price="159">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80" alt="Gym Shorts" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Under Armour</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">HeatGear Training Shorts</h3>
+                                <p class="text-sm text-gray-400">Men's 7" Training Shorts</p>
+                                <p class="font-display text-xl text-brand-accent">RM 159</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 9 -->
+                        <div class="product-card group cursor-pointer" data-category="lifestyle" data-price="389">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600&q=80" alt="Lifestyle Shoes" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Puma</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Suede Classic XXI</h3>
+                                <p class="text-sm text-gray-400">Unisex Sneakers</p>
+                                <p class="font-display text-xl text-brand-accent">RM 389</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 10 -->
+                        <div class="product-card group cursor-pointer" data-category="running" data-price="249">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Running Tights" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="absolute top-3 left-3 bg-brand-accent text-xs font-bold px-3 py-1 rounded-full">NEW</div>
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">AeroSwift Running Tights</h3>
+                                <p class="text-sm text-gray-400">Men's Running Tights</p>
+                                <p class="font-display text-xl text-brand-accent">RM 249</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 11 -->
+                        <div class="product-card group cursor-pointer" data-category="football" data-price="129">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1518459031867-a89b944bffe4?w=600&q=80" alt="Football Jersey" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Adidas</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Tiro 24 Training Jersey</h3>
+                                <p class="text-sm text-gray-400">Men's Football Jersey</p>
+                                <p class="font-display text-xl text-brand-accent">RM 129</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 12 -->
+                        <div class="product-card group cursor-pointer" data-category="basketball" data-price="219">
+                            <div class="relative overflow-hidden rounded-2xl bg-brand-dark mb-4">
+                                <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80" alt="Basketball" class="product-image w-full h-72 object-cover transition-transform duration-500">
+                                <div class="quick-view absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 transform translate-y-4 transition-all duration-300">
+                                    <button class="bg-white text-brand-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-brand-accent hover:text-white transition-colors">Quick View</button>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs text-gray-500 uppercase tracking-wider">Nike</p>
+                                <h3 class="font-semibold group-hover:text-brand-accent transition-colors">Elite Tournament Basketball</h3>
+                                <p class="text-sm text-gray-400">Size 7 Official Game Ball</p>
+                                <p class="font-display text-xl text-brand-accent">RM 219</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-center gap-2 mt-12">
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-dark hover:bg-brand-accent transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-accent font-semibold">1</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-dark hover:bg-brand-accent/50 transition-colors">2</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-dark hover:bg-brand-accent/50 transition-colors">3</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-dark hover:bg-brand-accent/50 transition-colors">4</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-brand-dark hover:bg-brand-accent transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-brand-dark">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="font-display text-4xl md:text-5xl mb-4">GET 10% OFF YOUR FIRST ORDER</h2>
+            <p class="text-gray-400 mb-8">Subscribe to our newsletter for exclusive deals and new arrivals.</p>
+            <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email" class="flex-1 bg-brand-black border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-accent transition-colors">
+                <button type="submit" class="bg-brand-accent hover:bg-brand-accentLight text-white px-8 py-3 font-semibold rounded-xl transition-all hover:scale-105">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <a href="index.html" class="font-display text-4xl tracking-wider text-white inline-block mb-4">
+                        APEX<span class="text-brand-accent">.</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Kuala Lumpur's premier destination for authentic sportswear and athletic footwear since 2015.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Running</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Training</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Football</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Basketball</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Lifestyle</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">FAQ</a></li>
+                        <li><a href="index.html#contact" class="hover:text-brand-accent transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Brands</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Nike</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Adidas</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Puma</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Under Armour</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">New Balance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2024 APEX Athletics Sdn Bhd. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-brand-accent transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-accent transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Category filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        const productCount = document.getElementById('product-count');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                let count = 0;
+                
+                productCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        count++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                productCount.textContent = count;
+            });
+        });
+
+        // Size chip toggle
+        const sizeChips = document.querySelectorAll('.size-chip');
+        sizeChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chip.classList.toggle('active');
+            });
+        });
+
+        // Mobile filter toggle
+        const filterToggle = document.getElementById('filter-toggle');
+        const filtersSidebar = document.getElementById('filters-sidebar');
+        
+        filterToggle.addEventListener('click', () => {
+            filtersSidebar.classList.toggle('hidden');
+            filtersSidebar.classList.toggle('fixed');
+            filtersSidebar.classList.toggle('inset-0');
+            filtersSidebar.classList.toggle('z-40');
+            filtersSidebar.classList.toggle('bg-brand-black');
+            filtersSidebar.classList.toggle('p-6');
+            filtersSidebar.classList.toggle('overflow-auto');
+        });
+    </script>
+
+</body>
+</html>
