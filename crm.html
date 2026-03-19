@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX Athletics | CRM - Customer Segments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            accent: '#ff4d00',
+                            accentLight: '#ff6a2a',
+                            gray: '#8a8a8a',
+                            light: '#f5f5f5',
+                        },
+                        segment: {
+                            champion: '#22c55e',
+                            loyal: '#3b82f6',
+                            potential: '#a855f7',
+                            new: '#06b6d4',
+                            promising: '#f59e0b',
+                            attention: '#f97316',
+                            risk: '#ef4444',
+                            hibernating: '#6b7280',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Bebas Neue', sans-serif; }
+        .sidebar-link.active {
+            background: rgba(255, 77, 0, 0.15);
+            color: #ff4d00;
+            border-left: 3px solid #ff4d00;
+        }
+        .segment-card:hover {
+            transform: translateY(-2px);
+        }
+        .customer-row:hover {
+            background: rgba(255,255,255,0.03);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        .rfm-badge {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white">
+
+    <div class="flex min-h-screen">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-brand-dark border-r border-white/10 flex-shrink-0 hidden lg:flex flex-col">
+            <div class="p-6 border-b border-white/10">
+                <a href="index.html" class="font-display text-3xl tracking-wider text-white">
+                    APEX<span class="text-brand-accent">.</span>
+                </a>
+                <p class="text-xs text-gray-500 mt-1">Admin Dashboard</p>
+            </div>
+            
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider px-4">Main</p>
+                </div>
+                <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-7 py-3 text-sm text-gray-400 transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="sidebar-link flex items-center gap-3 px-7 py-3 text-sm text-gray-400 transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    Orders
+                    <span class="ml-auto bg-brand-accent text-xs px-2 py-0.5 rounded-full">12</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center gap-3 px-7 py-3 text-sm text-gray-400 transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                    Products
+                </a>
+                <a href="crm.html" class="sidebar-link active flex items-center gap-3 px-7 py-3 text-sm transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    CRM
+                </a>
+                
+                <div class="px-4 mt-8 mb-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider px-4">Analytics</p>
+                </div>
+                <a href="#" class="sidebar-link flex items-center gap-3 px-7 py-3 text-sm text-gray-400 transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Reports
+                </a>
+                
+                <div class="px-4 mt-8 mb-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-wider px-4">Settings</p>
+                </div>
+                <a href="#" class="sidebar-link flex items-center gap-3 px-7 py-3 text-sm text-gray-400 transition-colors hover:bg-white/5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t border-white/10">
+                <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Admin" class="w-10 h-10 rounded-full object-cover">
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-sm truncate">David Lau</p>
+                        <p class="text-xs text-gray-500 truncate">Store Manager</p>
+                    </div>
+                    <button class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto">
+            <!-- Top Bar -->
+            <header class="sticky top-0 z-30 bg-brand-black/80 backdrop-blur-xl border-b border-white/10">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div>
+                        <h1 class="font-display text-2xl">CUSTOMER SEGMENTS</h1>
+                        <p class="text-sm text-gray-400">RFM Analysis • 5,247 Customers</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Search customers..." id="search-input" class="bg-brand-dark border border-white/10 rounded-xl px-4 py-2 pl-10 text-sm w-64 focus:outline-none focus:border-brand-accent transition-colors">
+                            <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <button class="bg-brand-accent hover:bg-brand-accentLight px-4 py-2 text-sm font-semibold rounded-xl transition-colors flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            Export
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="p-6 space-y-6">
+                
+                <!-- RFM Explanation -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5">
+                    <div class="flex items-start gap-6">
+                        <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">What is RFM Segmentation?</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Customers are scored 1-5 on three dimensions: <span class="text-cyan-400 font-medium">Recency</span> (days since last purchase), <span class="text-purple-400 font-medium">Frequency</span> (total orders), and <span class="text-green-400 font-medium">Monetary</span> (total spend). Combined RFM scores determine customer segments.</p>
+                            <div class="flex gap-6 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">R</span>
+                                    <span class="text-xs text-gray-400">1-5 days = 5 | 90+ days = 1</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">F</span>
+                                    <span class="text-xs text-gray-400">10+ orders = 5 | 1 order = 1</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">M</span>
+                                    <span class="text-xs text-gray-400">RM 5000+ = 5 | <RM 200 = 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segment Cards -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Champions -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-champion/50" data-segment="champion">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-champion/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-champion" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:5 F:5 M:5</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-champion mb-1">Champions</h4>
+                        <p class="font-display text-2xl mb-1">487</p>
+                        <p class="text-xs text-gray-400">9.3% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 4,820</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Loyal -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-loyal/50" data-segment="loyal">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-loyal/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-loyal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:4-5 F:4-5 M:3-5</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-loyal mb-1">Loyal Customers</h4>
+                        <p class="font-display text-2xl mb-1">724</p>
+                        <p class="text-xs text-gray-400">13.8% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 3,150</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Potential Loyalists -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-potential/50" data-segment="potential">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-potential/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-potential" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:3-5 F:2-3 M:2-4</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-potential mb-1">Potential Loyalists</h4>
+                        <p class="font-display text-2xl mb-1">892</p>
+                        <p class="text-xs text-gray-400">17.0% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 1,890</span></p>
+                        </div>
+                    </div>
+
+                    <!-- New Customers -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-new/50" data-segment="new">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-new/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-new" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:4-5 F:1 M:1-2</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-new mb-1">New Customers</h4>
+                        <p class="font-display text-2xl mb-1">634</p>
+                        <p class="text-xs text-gray-400">12.1% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 420</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Promising -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-promising/50" data-segment="promising">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-promising/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-promising" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:3-4 F:1-2 M:2-3</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-promising mb-1">Promising</h4>
+                        <p class="font-display text-2xl mb-1">518</p>
+                        <p class="text-xs text-gray-400">9.9% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 780</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Need Attention -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-attention/50" data-segment="attention">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-attention/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-attention" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:2-3 F:3-4 M:3-4</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-attention mb-1">Need Attention</h4>
+                        <p class="font-display text-2xl mb-1">567</p>
+                        <p class="text-xs text-gray-400">10.8% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 2,340</span></p>
+                        </div>
+                    </div>
+
+                    <!-- At Risk -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-risk/50" data-segment="risk">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-risk/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-risk" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:1-2 F:3-5 M:3-5</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-risk mb-1">At Risk</h4>
+                        <p class="font-display text-2xl mb-1">612</p>
+                        <p class="text-xs text-gray-400">11.7% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 3,580</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Hibernating -->
+                    <div class="segment-card bg-brand-dark rounded-2xl p-5 border border-white/5 cursor-pointer transition-all hover:border-segment-hibernating/50" data-segment="hibernating">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 bg-segment-hibernating/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-segment-hibernating" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500">R:1-2 F:1-2 M:1-2</span>
+                        </div>
+                        <h4 class="font-semibold text-segment-hibernating mb-1">Hibernating</h4>
+                        <p class="font-display text-2xl mb-1">813</p>
+                        <p class="text-xs text-gray-400">15.5% of customers</p>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <p class="text-xs text-gray-500">Avg. CLV: <span class="text-white font-medium">RM 290</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Segment Distribution -->
+                    <div class="bg-brand-dark rounded-2xl p-6 border border-white/5">
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-lg">Segment Distribution</h3>
+                            <p class="text-sm text-gray-400">Customer count by segment</p>
+                        </div>
+                        <div class="chart-container h-64">
+                            <canvas id="segmentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Revenue by Segment -->
+                    <div class="bg-brand-dark rounded-2xl p-6 border border-white/5">
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-lg">Revenue by Segment</h3>
+                            <p class="text-sm text-gray-400">Total revenue contribution</p>
+                        </div>
+                        <div class="chart-container h-64">
+                            <canvas id="revenueSegmentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segment Filter & Actions -->
+                <div class="bg-brand-dark rounded-2xl border border-white/5">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between p-6 border-b border-white/10 gap-4">
+                        <div>
+                            <h3 class="font-semibold text-lg">Customer List</h3>
+                            <p class="text-sm text-gray-400">Showing <span id="customer-count">25</span> customers</p>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <select id="segment-filter" class="bg-brand-black border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-brand-accent cursor-pointer">
+                                <option value="all">All Segments</option>
+                                <option value="champion">Champions</option>
+                                <option value="loyal">Loyal Customers</option>
+                                <option value="potential">Potential Loyalists</option>
+                                <option value="new">New Customers</option>
+                                <option value="promising">Promising</option>
+                                <option value="attention">Need Attention</option>
+                                <option value="risk">At Risk</option>
+                                <option value="hibernating">Hibernating</option>
+                            </select>
+                            <select class="bg-brand-black border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-brand-accent cursor-pointer">
+                                <option>Sort by RFM Score</option>
+                                <option>Sort by Recency</option>
+                                <option>Sort by Frequency</option>
+                                <option>Sort by Monetary</option>
+                                <option>Sort by Name</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-gray-400 uppercase tracking-wider">
+                                    <th class="px-6 py-4">Customer</th>
+                                    <th class="px-6 py-4">Segment</th>
+                                    <th class="px-6 py-4 text-center">R</th>
+                                    <th class="px-6 py-4 text-center">F</th>
+                                    <th class="px-6 py-4 text-center">M</th>
+                                    <th class="px-6 py-4">Last Order</th>
+                                    <th class="px-6 py-4">Total Spent</th>
+                                    <th class="px-6 py-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5" id="customer-table">
+                                <!-- Row 1 - Champion -->
+                                <tr class="customer-row" data-segment="champion">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Customer" class="w-10 h-10 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-sm">Ahmad Razif</p>
+                                                <p class="text-xs text-gray-500">ahmad.r@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-champion/20 text-segment-champion rounded-full">Champion</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">5</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">5</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">5</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">2 days ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 8,450</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors" title="Send Email">
+                                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                            </button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors" title="View Profile">
+                                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 - Loyal -->
+                                <tr class="customer-row" data-segment="loyal">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Customer" class="w-10 h-10 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-sm">Wei Ming</p>
+                                                <p class="text-xs text-gray-500">weiming@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-loyal/20 text-segment-loyal rounded-full">Loyal</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">5</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">4</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">4</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">5 days ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 5,230</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 - Potential -->
+                                <tr class="customer-row" data-segment="potential">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-sm font-medium text-purple-400">SL</div>
+                                            <div>
+                                                <p class="font-medium text-sm">Siti Liyana</p>
+                                                <p class="text-xs text-gray-500">siti.l@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-potential/20 text-segment-potential rounded-full">Potential</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">4</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">3</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">3</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">12 days ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 2,180</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 4 - At Risk -->
+                                <tr class="customer-row" data-segment="risk">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Customer" class="w-10 h-10 rounded-full object-cover">
+                                            <div>
+                                                <p class="font-medium text-sm">Rajan Krishnan</p>
+                                                <p class="text-xs text-gray-500">rajan.k@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-risk/20 text-segment-risk rounded-full">At Risk</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">2</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">4</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">4</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">45 days ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 4,890</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 5 - New -->
+                                <tr class="customer-row" data-segment="new">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-sm font-medium text-cyan-400">KT</div>
+                                            <div>
+                                                <p class="font-medium text-sm">Kevin Tan</p>
+                                                <p class="text-xs text-gray-500">kevin.t@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-new/20 text-segment-new rounded-full">New</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">5</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">1</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">2</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">1 day ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 549</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Row 6 - Hibernating -->
+                                <tr class="customer-row" data-segment="hibernating">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-gray-500/20 flex items-center justify-center text-sm font-medium text-gray-400">NP</div>
+                                            <div>
+                                                <p class="font-medium text-sm">Nurul Puteri</p>
+                                                <p class="text-xs text-gray-500">nurul.p@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2.5 py-1 text-xs font-medium bg-segment-hibernating/20 text-segment-hibernating rounded-full">Hibernating</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono rounded">1</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono rounded">1</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="rfm-badge px-2 py-1 bg-green-500/20 text-green-400 text-xs font-mono rounded">1</span></td>
+                                    <td class="px-6 py-4 text-sm text-gray-400">180 days ago</td>
+                                    <td class="px-6 py-4 font-semibold">RM 189</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex gap-2">
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></button>
+                                            <button class="p-2 hover:bg-white/10 rounded-lg transition-colors"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-between px-6 py-4 border-t border-white/10">
+                        <p class="text-sm text-gray-400">Showing 1-6 of 5,247 customers</p>
+                        <div class="flex items-center gap-2">
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-dark hover:bg-brand-accent/50 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-accent text-sm font-semibold">1</button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-dark hover:bg-brand-accent/50 transition-colors text-sm">2</button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-dark hover:bg-brand-accent/50 transition-colors text-sm">3</button>
+                            <span class="text-gray-500">...</span>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-dark hover:bg-brand-accent/50 transition-colors text-sm">875</button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-brand-dark hover:bg-brand-accent/50 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Actions -->
+                <div class="bg-brand-dark rounded-2xl p-6 border border-white/5">
+                    <h3 class="font-semibold text-lg mb-6">Recommended Actions by Segment</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-brand-black rounded-xl p-4 border-l-4 border-segment-champion">
+                            <h4 class="font-semibold text-segment-champion mb-2">Champions</h4>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li>• Early access to new releases</li>
+                                <li>• VIP membership program</li>
+                                <li>• Exclusive event invitations</li>
+                                <li>• Referral rewards</li>
+                            </ul>
+                        </div>
+                        <div class="bg-brand-black rounded-xl p-4 border-l-4 border-segment-potential">
+                            <h4 class="font-semibold text-segment-potential mb-2">Potential Loyalists</h4>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li>• Loyalty program enrollment</li>
+                                <li>• Personalized recommendations</li>
+                                <li>• Bundle offers</li>
+                                <li>• Birthday discounts</li>
+                            </ul>
+                        </div>
+                        <div class="bg-brand-black rounded-xl p-4 border-l-4 border-segment-attention">
+                            <h4 class="font-semibold text-segment-attention mb-2">Need Attention</h4>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li>• Limited-time offers</li>
+                                <li>• Re-engagement emails</li>
+                                <li>• Personal outreach</li>
+                                <li>• Feedback surveys</li>
+                            </ul>
+                        </div>
+                        <div class="bg-brand-black rounded-xl p-4 border-l-4 border-segment-risk">
+                            <h4 class="font-semibold text-segment-risk mb-2">At Risk</h4>
+                            <ul class="space-y-2 text-sm text-gray-400">
+                                <li>• Win-back campaigns</li>
+                                <li>• High-value discount codes</li>
+                                <li>• New arrival alerts</li>
+                                <li>• Personalized SMS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Charts Script -->
+    <script>
+        Chart.defaults.color = '#8a8a8a';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+
+        // Segment Distribution Chart
+        const segmentCtx = document.getElementById('segmentChart').getContext('2d');
+        new Chart(segmentCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Champions', 'Loyal', 'Potential', 'New', 'Promising', 'Attention', 'At Risk', 'Hibernating'],
+                datasets: [{
+                    data: [487, 724, 892, 634, 518, 567, 612, 813],
+                    backgroundColor: ['#22c55e', '#3b82f6', '#a855f7', '#06b6d4', '#f59e0b', '#f97316', '#ef4444', '#6b7280'],
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // Revenue by Segment Chart
+        const revenueCtx = document.getElementById('revenueSegmentChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Champions', 'Loyal', 'Potential', 'At Risk', 'Others'],
+                datasets: [{
+                    data: [38, 25, 18, 12, 7],
+                    backgroundColor: ['#22c55e', '#3b82f6', '#a855f7', '#ef4444', '#6b7280'],
+                    borderWidth: 0,
+                    cutout: '65%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { padding: 15, usePointStyle: true, pointStyle: 'circle' }
+                    }
+                }
+            }
+        });
+
+        // Segment card filter
+        const segmentCards = document.querySelectorAll('.segment-card');
+        const segmentFilter = document.getElementById('segment-filter');
+        const customerRows = document.querySelectorAll('.customer-row');
+        const customerCount = document.getElementById('customer-count');
+
+        segmentCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const segment = card.dataset.segment;
+                segmentFilter.value = segment;
+                filterCustomers(segment);
+            });
+        });
+
+        segmentFilter.addEventListener('change', (e) => {
+            filterCustomers(e.target.value);
+        });
+
+        function filterCustomers(segment) {
+            let count = 0;
+            customerRows.forEach(row => {
+                if (segment === 'all' || row.dataset.segment === segment) {
+                    row.style.display = '';
+                    count++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            customerCount.textContent = count;
+        }
+    </script>
+
+</body>
+</html>
